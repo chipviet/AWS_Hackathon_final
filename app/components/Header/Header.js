@@ -1,29 +1,29 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import classNames from "classnames";
-import Typography from "@material-ui/core/Typography";
-import Hidden from "@material-ui/core/Hidden";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import SearchIcon from "@material-ui/icons/Search";
-import MicIcon from "@material-ui/icons/Mic";
-import Fab from "@material-ui/core/Fab";
-import Ionicon from "react-ionicons";
-import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import UserMenu from "./UserMenu";
-import SearchUi from "../Search/SearchUi";
-import styles from "./header-jss";
-import { ReactMic } from "react-mic";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import Button from "@material-ui/core/Button";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
+import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import SearchIcon from '@material-ui/icons/Search';
+import MicIcon from '@material-ui/icons/Mic';
+import Fab from '@material-ui/core/Fab';
+import Ionicon from 'react-ionicons';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import { ReactMic } from 'react-mic';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import Button from '@material-ui/core/Button';
+import styles from './header-jss';
+import SearchUi from '../Search/SearchUi';
+import UserMenu from './UserMenu';
 
 const elem = document.documentElement;
 class Header extends React.Component {
@@ -44,11 +44,11 @@ class Header extends React.Component {
   flagTitle = false;
 
   componentDidMount = () => {
-    window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener('scroll', this.handleScroll);
   };
 
   componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   checkTimeOut = () => {
@@ -105,10 +105,10 @@ class Header extends React.Component {
 
   turnMode = (mode) => {
     const { changeMode } = this.props;
-    if (mode === "light") {
-      changeMode("dark");
+    if (mode === 'light') {
+      changeMode('dark');
     } else {
-      changeMode("light");
+      changeMode('light');
     }
   };
 
@@ -130,15 +130,15 @@ class Header extends React.Component {
   };
 
   onData(recordedBlob) {
-    console.log("chunk of real-time data is: ", recordedBlob);
+    console.log('chunk of real-time data is: ', recordedBlob);
   }
 
   onStop(recordedBlob) {
-    console.log("recordedBlob is: ", recordedBlob);
+    console.log('recordedBlob is: ', recordedBlob);
   }
 
   onRedirect = () => {
-    window.location.href = "http://localhost:3001/app/ui/card-papper";
+    window.location.href = 'http://localhost:3001/app/ui/card-papper';
   };
 
   render() {
@@ -153,10 +153,12 @@ class Header extends React.Component {
       openGuide,
       history,
     } = this.props;
-    const { fullScreen, open, turnDarker, showTitle, openMicro } = this.state;
+    const {
+      fullScreen, open, turnDarker, showTitle, openMicro
+    } = this.state;
 
     const setMargin = (sidebarPosition) => {
-      if (sidebarPosition === "right-sidebar") {
+      if (sidebarPosition === 'right-sidebar') {
         return classes.right;
       }
       return classes.left;
@@ -262,7 +264,7 @@ class Header extends React.Component {
             <div align="center">
               <DialogTitle id="alert-dialog-title">
                 {
-                  "The system will recognize your voice and navigate you to the desired page"
+                  'The system will recognize your voice and navigate you to the desired page'
                 }
               </DialogTitle>
               {this.state.record && (
@@ -299,7 +301,7 @@ class Header extends React.Component {
               {!this.state.isDone && !this.state.record && (
                 <div align="center">
                   <Button
-                    style={{ margin: "10px" }}
+                    style={{ margin: '10px' }}
                     variant="contained"
                     color="secondary"
                     onClick={this.startRecording}
@@ -312,7 +314,7 @@ class Header extends React.Component {
               {this.state.isDone && (
                 <div align="center">
                   <Button
-                    style={{ margin: "10px" }}
+                    style={{ margin: '10px' }}
                     variant="contained"
                     color="secondary"
                     onClick={this.onRedirect}
@@ -320,7 +322,7 @@ class Header extends React.Component {
                     OK
                   </Button>
                   <Button
-                    style={{ margin: "10px" }}
+                    style={{ margin: '10px' }}
                     variant="contained"
                     color="secondary"
                     onClick={this.setNotDone}

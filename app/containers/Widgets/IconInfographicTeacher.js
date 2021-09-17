@@ -1,19 +1,19 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import OndemandVideo from "@material-ui/icons/OndemandVideo";
-import SupervisorAccount from "@material-ui/icons/SupervisorAccount";
-import CollectionsBookmark from "@material-ui/icons/CollectionsBookmark";
-import Edit from "@material-ui/icons/Edit";
-import colorfull from "dan-api/palette/colorfull";
-import { CounterWidget } from "dan-components";
-import styles from "dan-components/Widget/widget-jss";
-import Button from "@material-ui/core/Button";
-import { NavLink } from "react-router-dom";
-import TeacherSimplePopover from "./demos/TeacherSimplePopover";
-import Popover from "@material-ui/core/Popover";
-import Typography from "@material-ui/core/Typography";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import OndemandVideo from '@material-ui/icons/OndemandVideo';
+import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
+import CollectionsBookmark from '@material-ui/icons/CollectionsBookmark';
+import Edit from '@material-ui/icons/Edit';
+import colorfull from 'dan-api/palette/colorfull';
+import { CounterWidget } from 'dan-components';
+import styles from 'dan-components/Widget/widget-jss';
+import Button from '@material-ui/core/Button';
+import { NavLink } from 'react-router-dom';
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
+import TeacherSimplePopover from './demos/TeacherSimplePopover';
 
 class IconInfographicTeacher extends React.Component {
   state = {
@@ -31,6 +31,7 @@ class IconInfographicTeacher extends React.Component {
       anchorEl: null,
     });
   };
+
   render() {
     const { classes } = this.props;
     const { anchorEl } = this.state;
@@ -51,11 +52,11 @@ class IconInfographicTeacher extends React.Component {
               {/* <NavLink to="/app/ui/card-papper" style={{ textDecoration: 'none', color: 'white' }}>Start Class</NavLink> */}
               <Button
                 variant="outlined"
-                style={{ border: "2px solid white", marginRight: "10px" }}
+                style={{ border: '2px solid white', marginRight: '10px' }}
               >
                 <NavLink
                   to="/app/pages/timeline"
-                  style={{ textDecoration: "none", color: "white" }}
+                  style={{ textDecoration: 'none', color: 'white' }}
                 >
                   Discussion
                 </NavLink>
@@ -64,7 +65,7 @@ class IconInfographicTeacher extends React.Component {
                 className={classes.button}
                 onClick={this.handleClick}
                 variant="outlined"
-                style={{ border: "2px solid white", color: "white" }}
+                style={{ border: '2px solid white', color: 'white' }}
               >
                 {/* <NavLink to="/app/pages/timeline" style={{ textDecoration: 'none', color: 'white' }}>Discussion</NavLink> */}
                 Start Class
@@ -74,19 +75,19 @@ class IconInfographicTeacher extends React.Component {
                 anchorEl={anchorEl}
                 onClose={this.handleClose}
                 anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "center",
+                  vertical: 'bottom',
+                  horizontal: 'center',
                 }}
                 transformOrigin={{
-                  vertical: "top",
-                  horizontal: "center",
+                  vertical: 'top',
+                  horizontal: 'center',
                 }}
               >
                 <Typography
                   className={classes.typography}
                   variant="h6"
                   component="h6"
-                  style={{ padding: "10px" }}
+                  style={{ padding: '10px' }}
                 >
                   Start class success
                 </Typography>
@@ -112,11 +113,11 @@ class IconInfographicTeacher extends React.Component {
 
               <Button
                 variant="outlined"
-                style={{ border: "2px solid white", marginRight: "10px" }}
+                style={{ border: '2px solid white', marginRight: '10px' }}
               >
                 <NavLink
                   to="/app/pages/timeline"
-                  style={{ textDecoration: "none", color: "white" }}
+                  style={{ textDecoration: 'none', color: 'white' }}
                 >
                   Discussion
                 </NavLink>
@@ -125,7 +126,7 @@ class IconInfographicTeacher extends React.Component {
                 className={classes.button}
                 onClick={this.handleClick}
                 variant="outlined"
-                style={{ border: "2px solid white", color: "white" }}
+                style={{ border: '2px solid white', color: 'white' }}
               >
                 {/* <NavLink to="/app/pages/timeline" style={{ textDecoration: 'none', color: 'white' }}>Discussion</NavLink> */}
                 Start Class
@@ -135,19 +136,19 @@ class IconInfographicTeacher extends React.Component {
                 anchorEl={anchorEl}
                 onClose={this.handleClose}
                 anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "center",
+                  vertical: 'bottom',
+                  horizontal: 'center',
                 }}
                 transformOrigin={{
-                  vertical: "top",
-                  horizontal: "center",
+                  vertical: 'top',
+                  horizontal: 'center',
                 }}
               >
                 <Typography
                   className={classes.typography}
                   variant="h6"
                   component="h6"
-                  style={{ padding: "10px" }}
+                  style={{ padding: '10px' }}
                 >
                   Start class success
                 </Typography>
@@ -171,11 +172,11 @@ class IconInfographicTeacher extends React.Component {
               </Button> */}
               <Button
                 variant="outlined"
-                style={{ border: "2px solid white", marginRight: "10px" }}
+                style={{ border: '2px solid white', marginRight: '10px' }}
               >
                 <NavLink
                   to="/app/pages/timeline"
-                  style={{ textDecoration: "none", color: "white" }}
+                  style={{ textDecoration: 'none', color: 'white' }}
                 >
                   Discussion
                 </NavLink>
@@ -184,7 +185,7 @@ class IconInfographicTeacher extends React.Component {
                 className={classes.button}
                 onClick={this.handleClick}
                 variant="outlined"
-                style={{ border: "2px solid white", color: "white" }}
+                style={{ border: '2px solid white', color: 'white' }}
               >
                 {/* <NavLink to="/app/pages/timeline" style={{ textDecoration: 'none', color: 'white' }}>Discussion</NavLink> */}
                 Start Class
@@ -194,19 +195,19 @@ class IconInfographicTeacher extends React.Component {
                 anchorEl={anchorEl}
                 onClose={this.handleClose}
                 anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "center",
+                  vertical: 'bottom',
+                  horizontal: 'center',
                 }}
                 transformOrigin={{
-                  vertical: "top",
-                  horizontal: "center",
+                  vertical: 'top',
+                  horizontal: 'center',
                 }}
               >
                 <Typography
                   className={classes.typography}
                   variant="h6"
                   component="h6"
-                  style={{ padding: "10px" }}
+                  style={{ padding: '10px' }}
                 >
                   Start class success
                 </Typography>
