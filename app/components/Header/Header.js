@@ -1,29 +1,41 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
-import Typography from '@material-ui/core/Typography';
-import Hidden from '@material-ui/core/Hidden';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import SearchIcon from '@material-ui/icons/Search';
-import Fab from '@material-ui/core/Fab';
-import Ionicon from 'react-ionicons';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import UserMenu from './UserMenu';
-import SearchUi from '../Search/SearchUi';
-import styles from './header-jss';
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import classNames from "classnames";
+import Typography from "@material-ui/core/Typography";
+import Hidden from "@material-ui/core/Hidden";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import SearchIcon from "@material-ui/icons/Search";
+import MicIcon from "@material-ui/icons/Mic";
+import Fab from "@material-ui/core/Fab";
+import Ionicon from "react-ionicons";
+import Tooltip from "@material-ui/core/Tooltip";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import UserMenu from "./UserMenu";
+import SearchUi from "../Search/SearchUi";
+import styles from "./header-jss";
+import { ReactMic } from "react-mic";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import Button from "@material-ui/core/Button";
 
 const elem = document.documentElement;
-
 class Header extends React.Component {
   state = {
     open: false,
     fullScreen: false,
     turnDarker: false,
-    showTitle: false
+    showTitle: false,
+    openMicro: false,
+    record: false,
+    isDone: false,
+    showText: false,
   };
 
   // Initial header style
@@ -32,18 +44,26 @@ class Header extends React.Component {
   flagTitle = false;
 
   componentDidMount = () => {
-    window.addEventListener('scroll', this.handleScroll);
-  }
+    window.addEventListener("scroll", this.handleScroll);
+  };
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll);
   }
+
+  checkTimeOut = () => {
+    setTimeout(
+      () => this.setState({ isDone: true, record: false, showText: true }),
+      3000
+    );
+    // this.stopRecording();
+  };
 
   handleScroll = () => {
     const doc = document.documentElement;
     const scroll = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
-    const newFlagDarker = (scroll > 30);
-    const newFlagTitle = (scroll > 40);
+    const newFlagDarker = scroll > 30;
+    const newFlagTitle = scroll > 40;
     if (this.flagDarker !== newFlagDarker) {
       this.setState({ turnDarker: newFlagDarker });
       this.flagDarker = newFlagDarker;
@@ -52,17 +72,20 @@ class Header extends React.Component {
       this.setState({ showTitle: newFlagTitle });
       this.flagTitle = newFlagTitle;
     }
-  }
+  };
 
   openFullScreen = () => {
     this.setState({ fullScreen: true });
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
-    } else if (elem.mozRequestFullScreen) { /* Firefox */
+    } else if (elem.mozRequestFullScreen) {
+      /* Firefox */
       elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+    } else if (elem.webkitRequestFullscreen) {
+      /* Chrome, Safari & Opera */
       elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE/Edge */
+    } else if (elem.msRequestFullscreen) {
+      /* IE/Edge */
       elem.msRequestFullscreen();
     }
   };
@@ -80,13 +103,42 @@ class Header extends React.Component {
     }
   };
 
-  turnMode = mode => {
+  turnMode = (mode) => {
     const { changeMode } = this.props;
-    if (mode === 'light') {
-      changeMode('dark');
+    if (mode === "light") {
+      changeMode("dark");
     } else {
-      changeMode('light');
+      changeMode("light");
     }
+  };
+
+  handleClickOpen = () => {
+    this.setState({ openMicro: true });
+  };
+
+  startRecording = () => {
+    this.setState({ record: true });
+    this.checkTimeOut();
+  };
+
+  stopRecording = () => {
+    this.setState({ record: false });
+  };
+
+  setNotDone = () => {
+    this.setState({ isDone: false });
+  };
+
+  onData(recordedBlob) {
+    console.log("chunk of real-time data is: ", recordedBlob);
+  }
+
+  onStop(recordedBlob) {
+    console.log("recordedBlob is: ", recordedBlob);
+  }
+
+  onRedirect = () => {
+    window.location.href = "http://localhost:3001/app/ui/card-papper";
   };
 
   render() {
@@ -99,17 +151,12 @@ class Header extends React.Component {
       mode,
       title,
       openGuide,
-      history
+      history,
     } = this.props;
-    const {
-      fullScreen,
-      open,
-      turnDarker,
-      showTitle
-    } = this.state;
+    const { fullScreen, open, turnDarker, showTitle, openMicro } = this.state;
 
     const setMargin = (sidebarPosition) => {
-      if (sidebarPosition === 'right-sidebar') {
+      if (sidebarPosition === "right-sidebar") {
         return classes.right;
       }
       return classes.left;
@@ -117,16 +164,14 @@ class Header extends React.Component {
 
     return (
       <AppBar
-        className={
-          classNames(
-            classes.appBar,
-            classes.floatingBar,
-            margin && classes.appBarShift,
-            setMargin(position),
-            turnDarker && classes.darker,
-            gradient ? classes.gradientBg : classes.solidBg
-          )
-        }
+        className={classNames(
+          classes.appBar,
+          classes.floatingBar,
+          margin && classes.appBarShift,
+          setMargin(position),
+          turnDarker && classes.darker,
+          gradient ? classes.gradientBg : classes.solidBg
+        )}
       >
         <Toolbar disableGutters={!open}>
           <Fab
@@ -139,22 +184,36 @@ class Header extends React.Component {
           </Fab>
           <Hidden smDown>
             <div className={classes.headerProperties}>
-              <div className={classNames(classes.headerAction, showTitle && classes.fadeOut)}>
+              <div
+                className={classNames(
+                  classes.headerAction,
+                  showTitle && classes.fadeOut
+                )}
+              >
                 {fullScreen ? (
                   <Tooltip title="Exit Full Screen" placement="bottom">
-                    <IconButton className={classes.button} onClick={this.closeFullScreen}>
+                    <IconButton
+                      className={classes.button}
+                      onClick={this.closeFullScreen}
+                    >
                       <Ionicon icon="ios-qr-scanner" />
                     </IconButton>
                   </Tooltip>
                 ) : (
                   <Tooltip title="Full Screen" placement="bottom">
-                    <IconButton className={classes.button} onClick={this.openFullScreen}>
+                    <IconButton
+                      className={classes.button}
+                      onClick={this.openFullScreen}
+                    >
                       <Ionicon icon="ios-qr-scanner" />
                     </IconButton>
                   </Tooltip>
                 )}
                 <Tooltip title="Turn Dark/Light" placement="bottom">
-                  <IconButton className={classes.button} onClick={() => this.turnMode(mode)}>
+                  <IconButton
+                    className={classes.button}
+                    onClick={() => this.turnMode(mode)}
+                  >
                     <Ionicon icon="ios-bulb-outline" />
                   </IconButton>
                 </Tooltip>
@@ -164,7 +223,13 @@ class Header extends React.Component {
                   </IconButton>
                 </Tooltip>
               </div>
-              <Typography component="h2" className={classNames(classes.headerTitle, showTitle && classes.show)}>
+              <Typography
+                component="h2"
+                className={classNames(
+                  classes.headerTitle,
+                  showTitle && classes.show
+                )}
+              >
                 {title}
               </Typography>
             </div>
@@ -177,6 +242,95 @@ class Header extends React.Component {
               <SearchUi history={history} />
             </div>
           </div>
+          <div>
+            <IconButton color="inherit" onClick={this.handleClickOpen}>
+              <MicIcon className={classes.icon} />
+            </IconButton>
+          </div>
+          {/* <ReactMic
+            className="sound-wave"
+            strokeColor="#000000"
+            backgroundColor="#4FD1C5"
+            mimeType="audio/wav"
+          /> */}
+          <Dialog
+            open={openMicro}
+            onClose={this.handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <div align="center">
+              <DialogTitle id="alert-dialog-title">
+                {
+                  "The system will recognize your voice and navigate you to the desired page"
+                }
+              </DialogTitle>
+              {this.state.record && (
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Please say the name of the page you want to go to!
+                  </DialogContentText>
+                </DialogContent>
+              )}
+              {this.state.showText && (
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    You want to navigate to page Quiz right?
+                  </DialogContentText>
+                </DialogContent>
+              )}
+            </div>
+
+            <div>
+              {!this.state.isDone && (
+                <ReactMic
+                  record={this.state.record}
+                  className="sound-wave"
+                  onStop={this.onStop}
+                  onData={this.onData}
+                  strokeColor="#ffffff"
+                  backgroundColor="#4FD1C5"
+                />
+              )}
+
+              {/* <button onClick={this.startRecording} type="button">
+                Start
+              </button> */}
+              {!this.state.isDone && !this.state.record && (
+                <div align="center">
+                  <Button
+                    style={{ margin: "10px" }}
+                    variant="contained"
+                    color="secondary"
+                    onClick={this.startRecording}
+                  >
+                    Start
+                  </Button>
+                </div>
+              )}
+
+              {this.state.isDone && (
+                <div align="center">
+                  <Button
+                    style={{ margin: "10px" }}
+                    variant="contained"
+                    color="secondary"
+                    onClick={this.onRedirect}
+                  >
+                    OK
+                  </Button>
+                  <Button
+                    style={{ margin: "10px" }}
+                    variant="contained"
+                    color="secondary"
+                    onClick={this.setNotDone}
+                  >
+                    Back
+                  </Button>
+                </div>
+              )}
+            </div>
+          </Dialog>
           <Hidden xsDown>
             <span className={classes.separatorV} />
           </Hidden>

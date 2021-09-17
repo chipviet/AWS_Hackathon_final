@@ -1,29 +1,34 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
-import brand from 'dan-api/dummy/brand';
-import { SourceReader, PapperBlock } from 'dan-components';
+import React from "react";
+import { Helmet } from "react-helmet";
+import brand from "dan-api/dummy/brand";
+import { SourceReader, PapperBlock } from "dan-components";
 import {
   StandardCards,
   ControlCards,
   PaperSheet,
   SocialCards,
-  EcommerceCards
-} from './demos';
-import Button from '@material-ui/core/Button';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Slide from '@material-ui/core/Slide';
+  EcommerceCards,
+} from "./demos";
+import Button from "@material-ui/core/Button";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Slide from "@material-ui/core/Slide";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
-const styles = theme => ({
+const styles = (theme) => ({
   title: {
     margin: `${theme.spacing.unit * 4}px 0 ${theme.spacing.unit * 2}px`,
+  },
+  inlineWrap: {
+    display: "flex",
+    flexDirection: "row",
   },
 });
 
@@ -32,7 +37,7 @@ function Transition(props) {
 }
 
 class Cards extends React.Component {
-    state = {
+  state = {
     open: false,
     openSlide: false,
   };
@@ -53,11 +58,11 @@ class Cards extends React.Component {
     this.setState({ openSlide: false });
   };
   render() {
-    const title = brand.name + ' - UI Elements';
+    const title = brand.name + " - UI Elements";
     const description = brand.desc;
-    const docSrc = 'containers/UiElements/demos/Cards/';
+    const docSrc = "containers/UiElements/demos/Cards/";
     const { classes } = this.props;
-    const { open, openSlide } = this.state;  
+    const { open, openSlide } = this.state;
     return (
       <div>
         <Helmet>
@@ -74,39 +79,79 @@ class Cards extends React.Component {
             <SourceReader componentName={docSrc + 'PaperSheet.js'} />
           </div>
         </PapperBlock> */}
-        <PapperBlock title="Camera" icon="ios-card-outline" desc="You must turn on your camera during the quiz">
+        <PapperBlock
+          title="Camera"
+          icon="ios-card-outline"
+          desc="You must turn on your camera during the quiz"
+        >
           <div>
             <StandardCards />
-            <button style={{color: 'white', background:'white'}} onClick={this.handleClickOpen}> Hellossss</button>
+            <button
+              style={{ color: "#FAFAFA", background: "#FAFAFA" }}
+              onClick={this.handleClickOpen}
+            >
+              {" "}
+              Hellossss
+            </button>
             <Dialog
               open={open}
               onClose={this.handleClose}
               aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description"
             >
-              <DialogTitle id="alert-dialog-title">
-                {"Fun Quiz"}
-              </DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                  What does h20 stand for?
-                </DialogContentText>
-              </DialogContent>
+              <div align="center">
+                <DialogTitle id="alert-dialog-title">{"Fun Quiz"}</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    What does h20 stand for?
+                  </DialogContentText>
+                </DialogContent>
+                <CountdownCircleTimer
+                  size={120}
+                  isPlaying
+                  duration={10}
+                  colors={[
+                    ["#219EE5", 0.33],
+                    ["#F7B801", 0.33],
+                    ["#A30000", 0.33],
+                  ]}
+                >
+                  {({ remainingTime }) => remainingTime}
+                </CountdownCircleTimer>
+              </div>
+
               <DialogActions>
-                <Button variant="outlined" color="primary" onClick={this.handleClose}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={this.handleClose}
+                >
                   Option 1
                 </Button>
-                <Button variant="outlined" color="secondary" onClick={this.handleClose}>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  onClick={this.handleClose}
+                >
                   option 2
                 </Button>
-                <Button variant="contained" color="primary" onClick={this.handleClose}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={this.handleClose}
+                >
                   Option 3
                 </Button>
-                <Button variant="contained" color="secondary" onClick={this.handleClose}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.handleClose}
+                >
                   Option 4
                 </Button>
               </DialogActions>
             </Dialog>
+
             {/* <SourceReader componentName={docSrc + 'StandardCards.js'} /> */}
           </div>
         </PapperBlock>
