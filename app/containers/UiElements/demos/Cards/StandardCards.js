@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Axios from 'axios';
-import { CrudTable, Notification } from 'dan-components';
+import { CrudTable, Notification,PapperBlock } from 'dan-components';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 // import FileAPI from "file-api";
 // import { createTodo } from "../../../../../src/graphql/mutations";
@@ -107,7 +107,7 @@ class StandardCard extends React.Component {
 
   componentDidMount() {
     this.fetchTodos();
-    this.checkTimeOut();
+    // this.checkTimeOut();
   }
 
   setTodos = (value) => {
@@ -246,13 +246,13 @@ class StandardCard extends React.Component {
 
   async convert(imageSrc) {
     // const imageSrc = webcamRef.current.getScreenshot();
-    const base64result = imageSrc.split(',')[1];
-    const blob = this.b64toBlob(base64result);
-    const file = new File([blob], 'minh_nguyen.jpg', {
-      type: 'image/png',
-    });
-    console.log('file', file);
-    this.UploadFile(file);
+    // const base64result = imageSrc.split(',')[1];
+    // const blob = this.b64toBlob(base64result);
+    // const file = new File([blob], 'minh_nguyen.jpg', {
+    //   type: 'image/png',
+    // });
+    // console.log('file', file);
+    // this.UploadFile(file);
   }
 
   setRef = (webcam) => {
@@ -266,12 +266,12 @@ class StandardCard extends React.Component {
   };
 
   capture = () => {
-    const imageSrc = this.webcam.getScreenshot();
-    if (imageSrc) {
-      this.convert(imageSrc);
-    } else {
-      this.convert(urlImage1);
-    }
+    // const imageSrc = this.webcam.getScreenshot();
+    // if (imageSrc) {
+    //   this.convert(imageSrc);
+    // } else {
+    //   this.convert(urlImage1);
+    // }
   };
 
   setCaptureEnable = (value) => {
@@ -296,10 +296,11 @@ class StandardCard extends React.Component {
     const bull = <span className={classes.bullet}>•</span>;
     const { show, flag, isCaptureEnable } = this.state;
     console.log('show', show);
-    if (show && flag && isCaptureEnable) {
+    if (isCaptureEnable) {
       console.log('comehere');
-      this.capture();
-      this.sendResult();
+      // this.capture();
+      // this.sendResult();
+      this.checkTimeOut()
     }
     const timerProps = {
       isPlaying: true,
@@ -336,8 +337,8 @@ class StandardCard extends React.Component {
               <>
                 <Webcam
                   audio={false}
-                  width={540}
-                  height={360}
+                  width={1050}
+                  height={480}
                   // ref={webcamRef}
                   ref={this.setRef}
                   screenshotFormat="image/jpeg"
@@ -351,8 +352,8 @@ class StandardCard extends React.Component {
                   Capture photo
                 </Button> */}
                 {this.state.show ? (
-                  <div className={classes.title}>
-                    <Typography color="primary" variant="subtitle1">
+                  <div className={classes.title} align="center">
+                    <Typography color="primary" variant="subtitle2">
                       The system identified your face
                     </Typography>
                   </div>
@@ -360,8 +361,9 @@ class StandardCard extends React.Component {
                   // <Typography component="p" className={classes.text}>
                   //   The system identified your face
                   // </Typography>
-                  <div className={classes.title}>
-                    <Typography color="error" variant="subtitle1">
+                  <div className={classes.title} align="center">
+                    
+                    <Typography color="error" variant="subtitle2">
                       The system cannot identify your face
                     </Typography>
                   </div>

@@ -8,7 +8,7 @@ const images = [
   'http://via.placeholder.com/1050x700/0097A7/FFFFFF/',
   'http://via.placeholder.com/1050x700/43A047/FFFFFF/',
   'http://via.placeholder.com/1050x700/558B2F/FFFFFF/',
-  'http://via.placeholder.com/1050x700/1DE9B6/767676/',
+  'https://i.pinimg.com/564x/50/d8/2a/50d82a36646328560d6cb719dddc1634.jpg',
   'http://via.placeholder.com/1050x700/00E5FF/767676/',
   'http://via.placeholder.com/1050x700/C6FF00/767676/',
   // 2
